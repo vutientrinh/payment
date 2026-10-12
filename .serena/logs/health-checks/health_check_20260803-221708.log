@@ -1,0 +1,204 @@
+INFO  2026-08-03 22:17:08,249 serena.cli:health_check:928 - Starting health check for project: C:\WorkSpace\Code\payment
+INFO  2026-08-03 22:17:08,249 serena.util.file_system:_load_gitignore_files:152 - Processing .gitignore file: C:\WorkSpace\Code\payment\.serena\.gitignore
+INFO  2026-08-03 22:17:08,249 serena.cli:health_check:932 - Creating SerenaAgent with disabled dashboard...
+INFO  2026-08-03 22:17:08,266 serena.util.file_system:stop:336 - Loading of .gitignore files completed in 0.019 seconds
+INFO  2026-08-03 22:17:08,266 serena.project:stop:336 - Gathering ignore spec for project payment completed in 0.020 seconds
+INFO  2026-08-03 22:17:08,361 serena.config.serena_config:from_config_file:1021 - Loading Serena configuration from C:\Users\vutie\.serena\serena_config.yml
+INFO  2026-08-03 22:17:08,407 serena.agent:__init__:627 - Will record tool usage statistics with token count estimator: CHAR_COUNT.
+INFO  2026-08-03 22:17:08,437 serena.agent:__init__:631 - Starting Serena server (version=1.6.1, process id=25032, parent process id=5984; language backend=LSP); Python version=3.13.14, platform=Windows-11-10.0.26200-SP0
+INFO  2026-08-03 22:17:08,438 serena.agent:__init__:635 - Configuration file: C:\Users\vutie\.serena\serena_config.yml
+INFO  2026-08-03 22:17:08,438 serena.agent:__init__:636 - Available projects: payment
+INFO  2026-08-03 22:17:08,438 serena.agent:__init__:637 - Loaded tools (52): create_text_file, replace_content, replace_in_files, delete_lines, replace_lines, insert_at_line, replace_symbol_body, insert_after_symbol, insert_before_symbol, read_file, list_dir, find_file, search_for_pattern, restart_language_server, get_symbols_overview, find_symbol, find_referencing_symbols, find_implementations, find_declaration, get_diagnostics_for_file, get_diagnostics_for_symbol, rename_symbol, safe_delete_symbol, write_memory, read_memory, list_memories, delete_memory, rename_memory, edit_memory, execute_shell_command, open_dashboard, activate_project, remove_project, get_current_config, onboarding, initial_instructions, serena_info, jet_brains_find_symbol, jet_brains_move, jet_brains_safe_delete, jet_brains_inline_symbol, jet_brains_find_referencing_symbols, jet_brains_get_symbols_overview, jet_brains_type_hierarchy, jet_brains_find_declaration, jet_brains_find_implementations, jet_brains_rename, jet_brains_debug, jet_brains_run_inspections, jet_brains_list_inspections, list_queryable_projects, query_project
+INFO  2026-08-03 22:17:08,438 serena.config.serena_config:determine_language_backend:1432 - Using language backend from global configuration: LSP
+INFO  2026-08-03 22:17:08,497 serena.config.serena_config:start:329 - Loading project instance for RegisteredProject[project_root=C:\WorkSpace\Code\payment, project_config=ProjectConfig[project_name=payment]] starting ...
+INFO  2026-08-03 22:17:08,498 serena.project:__init__:45 - Serena project data folder: C:\WorkSpace\Code\payment\.serena
+INFO  2026-08-03 22:17:08,499 serena.project:start:329 - Gathering ignore spec for project payment starting ...
+INFO  2026-08-03 22:17:08,499 serena.config.serena_config:stop:336 - Loading project instance for RegisteredProject[project_root=C:\WorkSpace\Code\payment, project_config=ProjectConfig[project_name=payment]] completed in 0.001 seconds
+INFO  2026-08-03 22:17:08,499 serena.util.file_system:start:329 - Loading of .gitignore files starting ...
+INFO  2026-08-03 22:17:08,499 serena.agent:activate_project_from_path_or_name:1301 - Found registered project 'payment' at path C:\WorkSpace\Code\payment
+INFO  2026-08-03 22:17:08,499 serena.agent:_activate_project:1171 - Activating payment at C:\WorkSpace\Code\payment
+INFO  2026-08-03 22:17:08,500 serena.task_executor:issue_task:205 - Scheduling Task-1:init_project_services
+INFO  2026-08-03 22:17:08,500 serena.util.file_system:_load_gitignore_files:152 - Processing .gitignore file: C:\WorkSpace\Code\payment\.gitignore
+INFO  2026-08-03 22:17:08,500 serena.agent:_update_active_modes:1079 - Active modes (2): editing, interactive
+INFO  2026-08-03 22:17:08,501 serena.util.file_system:_load_gitignore_files:152 - Processing .gitignore file: C:\WorkSpace\Code\payment\.serena\.gitignore
+INFO  2026-08-03 22:17:08,512 serena.util.file_system:stop:336 - Loading of .gitignore files completed in 0.013 seconds
+INFO  2026-08-03 22:17:08,513 serena.project:stop:336 - Gathering ignore spec for project payment completed in 0.014 seconds
+INFO  2026-08-03 22:17:08,520 serena.agent:_create_base_toolset:808 - Number of exposed tools: 29
+INFO  2026-08-03 22:17:08,574 serena.task_executor:_process_task_queue:129 - Starting execution of Task-1:init_project_services
+INFO  2026-08-03 22:17:08,575 serena.agent:__init__:676 - Number of exposed tools: 29. Exposed tools: ['activate_project', 'create_text_file', 'delete_memory', 'edit_memory', 'execute_shell_command', 'find_declaration', 'find_file', 'find_implementations', 'find_referencing_symbols', 'find_symbol', 'get_current_config', 'get_diagnostics_for_file', 'get_symbols_overview', 'initial_instructions', 'insert_after_symbol', 'insert_before_symbol', 'list_dir', 'list_memories', 'onboarding', 'read_file', 'read_memory', 'rename_memory', 'rename_symbol', 'replace_content', 'replace_in_files', 'replace_symbol_body', 'safe_delete_symbol', 'search_for_pattern', 'write_memory']
+INFO  2026-08-03 22:17:08,575 serena.task_executor:start:329 - Task-1:init_project_services starting ...
+INFO  2026-08-03 22:17:08,577 serena.agent:start:329 - Language server initialization starting ...
+INFO  2026-08-03 22:17:08,576 serena.agent:_update_active_tools:1097 - Active tools (29): activate_project, create_text_file, delete_memory, edit_memory, execute_shell_command, find_declaration, find_file, find_implementations, find_referencing_symbols, find_symbol, get_current_config, get_diagnostics_for_file, get_symbols_overview, initial_instructions, insert_after_symbol, insert_before_symbol, list_dir, list_memories, onboarding, read_file, read_memory, rename_memory, rename_symbol, replace_content, replace_in_files, replace_symbol_body, safe_delete_symbol, search_for_pattern, write_memory
+INFO  2026-08-03 22:17:08,577 serena.project:create_language_server_manager:475 - Creating language server manager for C:\WorkSpace\Code\payment
+INFO  2026-08-03 22:17:08,578 sensai.util.logging:start:329 - Language server startup (language=java) starting ...
+INFO  2026-08-03 22:17:08,578 serena.ls_manager:create_language_server:58 - Creating language server instance for C:\WorkSpace\Code\payment, language=java.
+INFO  2026-08-03 22:17:09,403 serena.cli:health_check:935 - SerenaAgent created successfully
+INFO  2026-08-03 22:17:09,404 serena.cli:health_check:938 - Searching for analyzable files...
+INFO  2026-08-03 22:17:09,419 serena.cli:health_check:947 - Found analyzable file: src\main\java\com\example\payment\PaymentApplication.java
+INFO  2026-08-03 22:17:09,419 serena.cli:health_check:965 - Testing GetSymbolsOverviewTool on file: src\main\java\com\example\payment\PaymentApplication.java
+INFO  2026-08-03 22:17:09,419 serena.task_executor:issue_task:205 - Scheduling Task-2:<lambda>
+ERROR 2026-08-03 22:17:19,632 solidlsp.ls_utils:download_file_verified:461 - Error downloading file 'https://VisualStudioExptTeam.gallery.vsassets.io/_apis/public/gallery/publisher/VisualStudioExptTeam/extension/vscodeintellicode/1.2.30/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage': ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+ERROR 2026-08-03 22:17:19,632 solidlsp.ls_utils:download_and_extract_archive_verified:526 - Error extracting archive obtained from 'https://VisualStudioExptTeam.gallery.vsassets.io/_apis/public/gallery/publisher/VisualStudioExptTeam/extension/vscodeintellicode/1.2.30/assetbyname/Microsoft.VisualStudio.Services.VSIXPackage': Error downloading file.
+ERROR 2026-08-03 22:17:19,633 sensai.util.logging:__exit__:342 - Language server startup (language=java) failed after 11.056 seconds
+ERROR 2026-08-03 22:17:19,633 serena.ls_manager:_start_language_server:123 - Error starting language server for language java: Error extracting archive.
+Traceback (most recent call last):
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\solidlsp\ls_utils.py", line 495, in download_and_extract_archive_verified
+    FileUtils.download_file_verified(url, tmp_file_name, expected_sha256=expected_sha256, allowed_hosts=allowed_hosts)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\solidlsp\ls_utils.py", line 462, in download_file_verified
+    raise SolidLSPException("Error downloading file.") from None
+solidlsp.ls_exceptions.SolidLSPException: Error downloading file.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\ls_manager.py", line 118, in _start_language_server
+    self.language_server = factory.create_language_server(self.language)
+                           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\ls_manager.py", line 59, in create_language_server
+    return SolidLanguageServer.create(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        ls_config,
+        ^^^^^^^^^^
+    ...<6 lines>...
+        ),
+        ^^
+    )
+    ^
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\solidlsp\ls.py", line 448, in create
+    ls = ls_class(config, repository_root_path, solidlsp_settings)
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\solidlsp\language_servers\eclipse_jdtls.py", line 258, in __init__
+    super().__init__(config, repository_root_path, None, "java", solidlsp_settings)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\solidlsp\ls.py", line 544, in __init__
+    self.server = self._create_language_server_interface(logging_fn)
+                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\solidlsp\ls.py", line 610, in _create_language_server_interface
+    process_launch_info = self._get_process_launch_info()
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\solidlsp\ls.py", line 594, in _get_process_launch_info
+    self._process_launch_info = self._create_process_launch_info()
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\solidlsp\ls.py", line 587, in _create_process_launch_info
+    dependency_provider = self._get_dependency_provider()
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\solidlsp\ls.py", line 583, in _get_dependency_provider
+    self._dependency_provider = self._create_dependency_provider()
+                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\solidlsp\language_servers\eclipse_jdtls.py", line 270, in _create_dependency_provider
+    return self.DependencyProvider(self._custom_settings, ls_resources_dir, self._solidlsp_settings, self.repository_root_path)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\solidlsp\language_servers\eclipse_jdtls.py", line 283, in __init__
+    self.runtime_dependency_paths = self._setup_runtime_dependencies(ls_resources_dir, custom_settings)
+                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\solidlsp\language_servers\eclipse_jdtls.py", line 522, in _setup_runtime_dependencies
+    FileUtils.download_and_extract_archive_verified(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        cast(str, dependency["url"]),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+        allowed_hosts=cast(tuple[str, ...], dependency["allowed_hosts"]),
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\solidlsp\ls_utils.py", line 527, in download_and_extract_archive_verified
+    raise SolidLSPException("Error extracting archive.") from exc
+solidlsp.ls_exceptions.SolidLSPException: Error extracting archive.
+ERROR 2026-08-03 22:17:19,673 serena.agent:__exit__:342 - Language server initialization failed after 11.097 seconds
+ERROR 2026-08-03 22:17:19,673 serena.task_executor:__exit__:342 - Task-1:init_project_services failed after 11.098 seconds
+ERROR 2026-08-03 22:17:19,674 serena.task_executor:run_task:68 - Error during execution of Task-1:init_project_services: Failed to start 1 language server(s):
+java: Error extracting archive.
+Traceback (most recent call last):
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\task_executor.py", line 63, in run_task
+    result = self._function()
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\agent.py", line 1205, in init_project_services
+    self._init_active_project_language_backend()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\agent.py", line 1271, in _init_active_project_language_backend
+    self.reset_language_server_manager()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\agent.py", line 1386, in reset_language_server_manager
+    self.get_active_project_or_raise().create_language_server_manager()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\project.py", line 496, in create_language_server_manager
+    self.language_server_manager = LanguageServerManager.from_languages(self.project_config.languages, factory, self)
+                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\ls_manager.py", line 152, in from_languages
+    raise LanguageServerManagerInitialisationError(f"Failed to start {len(exceptions)} language server(s):\n{failure_messages}")
+serena.ls_manager.LanguageServerManagerInitialisationError: Failed to start 1 language server(s):
+java: Error extracting archive.
+INFO  2026-08-03 22:17:19,678 serena.task_executor:_process_task_queue:129 - Starting execution of Task-2:<lambda>
+INFO  2026-08-03 22:17:19,678 serena.task_executor:start:329 - Task-2:<lambda> starting ...
+ERROR 2026-08-03 22:17:19,678 serena.task_executor:__exit__:342 - Task-2:<lambda> failed after 0.000 seconds
+ERROR 2026-08-03 22:17:19,678 serena.task_executor:run_task:68 - Error during execution of Task-2:<lambda>: The language server manager is not initialized, indicating a problem during project initialisation.
+Failed to start 1 language server(s):
+java: Error extracting archive.
+For details, please check the logs. Unfortunately, logs are not available. We recommend enabling the web dashboard/logging in general.
+IMPORTANT: Stop, do not attempt workarounds. Inform the user and wait for further instructions before you continue!
+Traceback (most recent call last):
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\task_executor.py", line 63, in run_task
+    result = self._function()
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\cli.py", line 966, in <lambda>
+    overview_data = agent.execute_task(lambda: overview_tool.get_symbol_overview(target_file))
+                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\tools\symbol_tools.py", line 99, in get_symbol_overview
+    symbol_retriever = self.create_language_server_symbol_retriever()
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\tools\tools_base.py", line 57, in create_language_server_symbol_retriever
+    return LanguageServerSymbolRetriever(self.project)
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\symbol.py", line 584, in __init__
+    self._ls_manager: LanguageServerManager = project.get_language_server_manager_or_raise()
+                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\project.py", line 512, in get_language_server_manager_or_raise
+    raise Exception(msg.build())
+Exception: The language server manager is not initialized, indicating a problem during project initialisation.
+Failed to start 1 language server(s):
+java: Error extracting archive.
+For details, please check the logs. Unfortunately, logs are not available. We recommend enabling the web dashboard/logging in general.
+IMPORTANT: Stop, do not attempt workarounds. Inform the user and wait for further instructions before you continue!
+ERROR 2026-08-03 22:17:19,702 serena.cli:health_check:1040 - Health check failed with exception: The language server manager is not initialized, indicating a problem during project initialisation.
+Failed to start 1 language server(s):
+java: Error extracting archive.
+For details, please check the logs. Unfortunately, logs are not available. We recommend enabling the web dashboard/logging in general.
+IMPORTANT: Stop, do not attempt workarounds. Inform the user and wait for further instructions before you continue!
+Traceback (most recent call last):
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\cli.py", line 966, in health_check
+    overview_data = agent.execute_task(lambda: overview_tool.get_symbol_overview(target_file))
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\agent.py", line 1134, in execute_task
+    return self._task_executor.execute_task(task, name=name, logged=logged, timeout=timeout)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\task_executor.py", line 222, in execute_task
+    return task_obj.result()
+           ~~~~~~~~~~~~~~~^^
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\task_executor.py", line 91, in result
+    return self.future.result(timeout=timeout)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\vutie\AppData\Roaming\uv\python\cpython-3.13.14-windows-x86_64-none\Lib\concurrent\futures\_base.py", line 460, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\vutie\AppData\Roaming\uv\python\cpython-3.13.14-windows-x86_64-none\Lib\concurrent\futures\_base.py", line 402, in __get_result
+    raise self._exception
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\task_executor.py", line 110, in wait_until_done
+    self.future.result(timeout=timeout)
+    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\vutie\AppData\Roaming\uv\python\cpython-3.13.14-windows-x86_64-none\Lib\concurrent\futures\_base.py", line 460, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\vutie\AppData\Roaming\uv\python\cpython-3.13.14-windows-x86_64-none\Lib\concurrent\futures\_base.py", line 402, in __get_result
+    raise self._exception
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\task_executor.py", line 63, in run_task
+    result = self._function()
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\cli.py", line 966, in <lambda>
+    overview_data = agent.execute_task(lambda: overview_tool.get_symbol_overview(target_file))
+                                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\tools\symbol_tools.py", line 99, in get_symbol_overview
+    symbol_retriever = self.create_language_server_symbol_retriever()
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\tools\tools_base.py", line 57, in create_language_server_symbol_retriever
+    return LanguageServerSymbolRetriever(self.project)
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\symbol.py", line 584, in __init__
+    self._ls_manager: LanguageServerManager = project.get_language_server_manager_or_raise()
+                                              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\vutie\AppData\Roaming\uv\tools\serena-agent\Lib\site-packages\serena\project.py", line 512, in get_language_server_manager_or_raise
+    raise Exception(msg.build())
+Exception: The language server manager is not initialized, indicating a problem during project initialisation.
+Failed to start 1 language server(s):
+java: Error extracting archive.
+For details, please check the logs. Unfortunately, logs are not available. We recommend enabling the web dashboard/logging in general.
+IMPORTANT: Stop, do not attempt workarounds. Inform the user and wait for further instructions before you continue!
