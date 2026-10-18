@@ -19,11 +19,11 @@ public class JpaOrderRepository implements OrderRepository {
 
   @Override
   public Optional<OrderEntity> findById(Long id) {
-    return jpaDataOrderRepository.findById(id);
+    return jpaDataOrderRepository.findActiveByIdWithDetails(id);
   }
 
   @Override
   public List<OrderEntity> findAll() {
-    return jpaDataOrderRepository.findAll();
+    return jpaDataOrderRepository.findAllActiveWithDetails();
   }
 }

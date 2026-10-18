@@ -10,4 +10,6 @@ public interface PaymentRepository {
   List<PaymentEntity> findAll();
 
   PaymentEntity save(PaymentEntity paymentEntity);
+
+  boolean existsByOrderId(Long orderId);
 }

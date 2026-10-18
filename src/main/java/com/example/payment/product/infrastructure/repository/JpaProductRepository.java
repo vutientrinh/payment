@@ -14,11 +14,16 @@ public class JpaProductRepository implements ProductRepository {
 
   @Override
   public Optional<ProductEntity> findById(Long productId) {
-    return jpaDataProductRepository.findById(productId);
+    return jpaDataProductRepository.findActiveById(productId);
   }
 
   @Override
   public List<ProductEntity> findAll() {
-    return jpaDataProductRepository.findAll();
+    return jpaDataProductRepository.findAllActive();
+  }
+
+  @Override
+  public ProductEntity save(ProductEntity product) {
+    return jpaDataProductRepository.save(product);
   }
 }

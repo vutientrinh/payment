@@ -34,7 +34,11 @@ public abstract class BaseEntity {
   }
 
   @PreUpdate
-  protected void onUpdate() {
+  protected void update() {
     updatedAt = LocalDateTime.now();
+  }
+
+  public void deactivate() {
+    isActive = false;
   }
 }

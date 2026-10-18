@@ -14,16 +14,21 @@ public class JpaPaymentRepository implements PaymentRepository {
 
   @Override
   public Optional<PaymentEntity> findById(Long id) {
-    return jpaDataPaymentRepository.findById(id);
+    return jpaDataPaymentRepository.findByIdWithOrder(id);
   }
 
   @Override
   public List<PaymentEntity> findAll() {
-    return jpaDataPaymentRepository.findAll();
+    return jpaDataPaymentRepository.findAllWithOrder();
   }
 
   @Override
   public PaymentEntity save(PaymentEntity paymentEntity) {
     return jpaDataPaymentRepository.save(paymentEntity);
+  }
+
+  @Override
+  public boolean existsByOrderId(Long orderId) {
+    return jpaDataPaymentRepository.existsByOrderId(orderId);
   }
 }
