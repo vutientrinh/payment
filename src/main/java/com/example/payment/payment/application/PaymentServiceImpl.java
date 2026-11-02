@@ -10,12 +10,16 @@ import com.example.payment.payment.domain.PaymentMethod;
 import com.example.payment.payment.domain.PaymentStatus;
 import com.example.payment.shared.application.ConflictException;
 import com.example.payment.shared.application.ResourceNotFoundException;
+import com.example.payment.shared.messaging.EventEnvelope;
 import com.example.payment.shared.outbox.application.OutboxEventRepository;
 import com.example.payment.shared.outbox.domain.OutboxEventEntity;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.time.Instant;
 import java.util.List;
+import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.MDC;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -63,14 +67,16 @@ public class PaymentServiceImpl implements PaymentService {
     payment.setPaymentStatus(PaymentStatus.PENDING);
     order.setOrderStatus(OrderStatus.PAYMENT_PROCESSING);
     PaymentEntity savedPayment = paymentRepository.save(payment);
+    UUID eventId = UUID.randomUUID();
     outboxEventRepository.save(
         OutboxEventEntity.pending(
+            eventId,
             "Payment",
             savedPayment.getId(),
             PAYMENT_REQUESTED_EVENT,
             PAYMENT_REQUESTED_TOPIC,
             savedPayment.getId().toString(),
-            serializePaymentRequestedEvent(savedPayment)));
+            serializePaymentRequestedEvent(eventId, savedPayment)));
     return PaymentView.from(savedPayment);
   }
 
@@ -93,14 +99,20 @@ public class PaymentServiceImpl implements PaymentService {
         .orElseThrow(() -> new ResourceNotFoundException("Payment", id));
   }
 
-  private String serializePaymentRequestedEvent(PaymentEntity payment) {
+  private String serializePaymentRequestedEvent(UUID eventId, PaymentEntity payment) {
     try {
       return objectMapper.writeValueAsString(
-          new PaymentRequestedEvent(
+          new EventEnvelope<>(
+              eventId,
+              PAYMENT_REQUESTED_EVENT,
               payment.getId(),
-              payment.getOrder().getId(),
-              payment.getOrder().getOrderAmount(),
-              payment.getPaymentMethod()));
+              Instant.now().toString(),
+              MDC.get("traceId"),
+              new PaymentRequestedEvent(
+                  payment.getId(),
+                  payment.getOrder().getId(),
+                  payment.getOrder().getOrderAmount(),
+                  payment.getPaymentMethod())));
     } catch (JsonProcessingException exception) {
       throw new IllegalStateException("Unable to serialize payment.requested.v1 event", exception);
     }

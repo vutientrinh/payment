@@ -72,8 +72,20 @@ public class OutboxEventEntity extends BaseEntity {
       String topic,
       String eventKey,
       String payload) {
+    return pending(
+        UUID.randomUUID(), aggregateType, aggregateId, eventType, topic, eventKey, payload);
+  }
+
+  public static OutboxEventEntity pending(
+      UUID eventId,
+      String aggregateType,
+      Long aggregateId,
+      String eventType,
+      String topic,
+      String eventKey,
+      String payload) {
     OutboxEventEntity event = new OutboxEventEntity();
-    event.eventId = UUID.randomUUID();
+    event.eventId = eventId;
     event.aggregateType = aggregateType;
     event.aggregateId = aggregateId;
     event.eventType = eventType;

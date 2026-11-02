@@ -67,9 +67,13 @@ class PaymentServiceImplTest {
     assertEquals("payment.requested.v1", event.getEventType());
     assertEquals("payment.requested.v1", event.getTopic());
     assertEquals("99", event.getEventKey());
-    assertEquals(99L, payload.get("paymentId").asLong());
-    assertEquals(42L, payload.get("orderId").asLong());
-    assertEquals(120000, payload.get("amount").asInt());
-    assertEquals("EWALLET", payload.get("paymentMethod").asText());
+    assertEquals(event.getEventId().toString(), payload.get("eventId").asText());
+    assertEquals("payment.requested.v1", payload.get("eventType").asText());
+    assertEquals(99L, payload.get("aggregateId").asLong());
+    assertNotNull(payload.get("occurredAt").asText());
+    assertEquals(99L, payload.get("payload").get("paymentId").asLong());
+    assertEquals(42L, payload.get("payload").get("orderId").asLong());
+    assertEquals(120000, payload.get("payload").get("amount").asInt());
+    assertEquals("EWALLET", payload.get("payload").get("paymentMethod").asText());
   }
 }
