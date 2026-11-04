@@ -13,6 +13,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://payment-postgres:5432/payment?tcpKeepAlive=true&socketTimeout=60
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-payment}
       SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-payment}
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
       KAFKA_BOOTSTRAP_SERVERS: kafka:19092
       KAFKA_OUTBOX_PUBLISHER_ENABLED: "true"
     depends_on:

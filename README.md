@@ -7,7 +7,7 @@ A service for managing customers, products, orders, and payments. It stores data
 ## Technology stack
 
 - Java 21, Spring Boot 4.1, Spring MVC, Spring Data JPA
-- PostgreSQL, Flyway, and Hibernate
+- PostgreSQL and Hibernate
 - Apache Kafka and Spring Kafka
 - Maven Wrapper, Lombok, and Actuator
 - Docker Compose for the local environment
@@ -40,9 +40,7 @@ src/main/java/com/example/payment
     └── outbox/                       # Outbox domain, repository, and Kafka publisher
 
 src/main/resources
-├── application.properties            # Kafka/outbox defaults
-└── db/migration/
-    └── V1__create_outbox_events.sql  # PostgreSQL outbox table and indexes
+└── application.properties            # Kafka/outbox defaults
 
 docs/
 └── kafka-transactional-outbox-roadmap.md
@@ -184,6 +182,11 @@ Compose starts:
 - Kafka at `localhost:9092`;
 - the `payment.requested.v1` topic with three partitions.
 
+Compose sets `spring.jpa.hibernate.ddl-auto=update` for local development. Hibernate
+creates missing tables from entity mappings; it is not a production migration strategy.
+Introduce versioned migrations before deploying to a shared environment or preserving
+data through schema changes.
+
 Supported Compose variables:
 
 | Variable | Default | Purpose |
@@ -212,7 +215,7 @@ Existing unit tests cover payment-event serialization, outbox state/retry behavi
 
 ## Production gaps and risks
 
-- Only `outbox_events` has a migration. Baseline/Flyway migrations for the full domain schema and schema ownership must be confirmed before deployment to a shared database.
+- There are no versioned database migrations. Establish a migration baseline for the full schema before deployment to a shared database.
 - The API has no authentication/authorization, ownership checks, or idempotency key.
 - `existsByOrderId` is an early check; it does not replace the database constraint under concurrent payment-creation requests. `DataIntegrityViolationException` is mapped to `409`.
 - There is no Kafka consumer/payment-provider adapter, inbox deduplication, reconciliation, DLT/replay, outbox metrics, or alerting.
