@@ -3,9 +3,9 @@ package com.example.payment.shared.outbox.domain;
 import com.example.payment.shared.domain.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Index;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.Index;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import java.time.LocalDateTime;
@@ -19,7 +19,9 @@ import org.hibernate.type.SqlTypes;
     name = "outbox_events",
     indexes = {
       @Index(name = "idx_outbox_events_pending", columnList = "status, available_at, created_at"),
-      @Index(name = "idx_outbox_events_expired_lease", columnList = "status, lease_expires_at, created_at")
+      @Index(
+          name = "idx_outbox_events_expired_lease",
+          columnList = "status, lease_expires_at, created_at")
     },
     uniqueConstraints =
         @UniqueConstraint(name = "uk_outbox_events_event_id", columnNames = "event_id"))

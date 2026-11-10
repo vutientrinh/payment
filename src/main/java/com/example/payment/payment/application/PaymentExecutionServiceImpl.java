@@ -1,4 +1,3 @@
 package com.example.payment.payment.application;
 
-public class PaymentExecutionServiceImpl {
-}
+public class PaymentExecutionServiceImpl {}

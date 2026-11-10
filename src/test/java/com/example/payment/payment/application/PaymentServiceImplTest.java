@@ -13,8 +13,6 @@ import com.example.payment.payment.domain.PaymentEntity;
 import com.example.payment.payment.domain.PaymentMethod;
 import com.example.payment.shared.outbox.application.OutboxEventRepository;
 import com.example.payment.shared.outbox.domain.OutboxEventEntity;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.math.BigDecimal;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,6 +21,8 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
+import tools.jackson.databind.JsonNode;
+import tools.jackson.databind.json.JsonMapper;
 
 @ExtendWith(MockitoExtension.class)
 class PaymentServiceImplTest {
@@ -32,7 +32,7 @@ class PaymentServiceImplTest {
   @Mock private OutboxEventRepository outboxEventRepository;
   @Captor private ArgumentCaptor<OutboxEventEntity> outboxEventCaptor;
 
-  private final ObjectMapper objectMapper = new ObjectMapper();
+  private final JsonMapper objectMapper = JsonMapper.builder().build();
 
   @Test
   void createPaymentPersistsPendingOutboxEvent() throws Exception {
@@ -67,13 +67,13 @@ class PaymentServiceImplTest {
     assertEquals("payment.requested.v1", event.getEventType());
     assertEquals("payment.requested.v1", event.getTopic());
     assertEquals("99", event.getEventKey());
-    assertEquals(event.getEventId().toString(), payload.get("eventId").asText());
-    assertEquals("payment.requested.v1", payload.get("eventType").asText());
+    assertEquals(event.getEventId().toString(), payload.get("eventId").asString());
+    assertEquals("payment.requested.v1", payload.get("eventType").asString());
     assertEquals(99L, payload.get("aggregateId").asLong());
-    assertNotNull(payload.get("occurredAt").asText());
+    assertNotNull(payload.get("occurredAt").asString());
     assertEquals(99L, payload.get("payload").get("paymentId").asLong());
     assertEquals(42L, payload.get("payload").get("orderId").asLong());
     assertEquals(120000, payload.get("payload").get("amount").asInt());
-    assertEquals("EWALLET", payload.get("payload").get("paymentMethod").asText());
+    assertEquals("EWALLET", payload.get("payload").get("paymentMethod").asString());
   }
 }
