@@ -1,4 +1,3 @@
 package com.example.payment.shared.inbox.infrastructure.repository;
 
-public class JpaDataConsumedEventRepository {
-}
+public class JpaDataConsumedEventRepository {}

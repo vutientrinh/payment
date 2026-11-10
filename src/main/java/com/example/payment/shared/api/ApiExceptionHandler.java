@@ -24,15 +24,20 @@ public class ApiExceptionHandler {
 
   @ExceptionHandler(DataIntegrityViolationException.class)
   public ProblemDetail handleDataIntegrityViolation(DataIntegrityViolationException exception) {
-    return ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, "Request conflicts with existing data");
+    return ProblemDetail.forStatusAndDetail(
+        HttpStatus.CONFLICT, "Request conflicts with existing data");
   }
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
   public ProblemDetail handleValidation(MethodArgumentNotValidException exception) {
-    ProblemDetail problem = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, "Request validation failed");
+    ProblemDetail problem =
+        ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, "Request validation failed");
     problem.setTitle("Validation failed");
-    problem.setProperty("fieldErrors", exception.getBindingResult().getFieldErrors().stream()
-        .map(error -> new FieldError(error.getField(), error.getDefaultMessage())).toList());
+    problem.setProperty(
+        "fieldErrors",
+        exception.getBindingResult().getFieldErrors().stream()
+            .map(error -> new FieldError(error.getField(), error.getDefaultMessage()))
+            .toList());
     return problem;
   }
 
