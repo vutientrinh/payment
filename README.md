@@ -182,10 +182,14 @@ Compose starts:
 - Kafka at `localhost:9092`;
 - the `payment.requested.v1` topic with three partitions.
 
-Compose sets `spring.jpa.hibernate.ddl-auto=update` for local development. Hibernate
-creates missing tables from entity mappings; it is not a production migration strategy.
-Introduce versioned migrations before deploying to a shared environment or preserving
-data through schema changes.
+The database schema is managed by Flyway (`src/main/resources/db/migration`). Hibernate
+runs with `ddl-auto=validate` and only checks that the entities match the schema. To change
+the schema, add a new `V<n>__<description>.sql` file; never edit a migration that has
+already been applied. A database created earlier by Hibernate (`ddl-auto=update`) has no
+Flyway history: reset the local volume (`docker compose down -v`) before the first start.
+
+Tests run against a throwaway PostgreSQL 17 started by Testcontainers, so Docker must be
+running for `mvnw.cmd test`.
 
 Supported Compose variables:
 

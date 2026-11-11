@@ -47,14 +47,24 @@ Payment executor consumer
 
 ### Task 0 — Establish Baseline and Migration Strategy
 
-**Status:** pending.
+**Status:** implemented; final check (`mvnw.cmd test` with Docker running) pending.
 
-**Why first:** the application currently relies on JPA entities while the initial outbox migration is `V1`. Before any shared database deployment, establish whether the existing domain schema is created by Hibernate or has an external migration history. Applying `V1` to a database that already has domain tables can leave schema ownership inconsistent.
+**Decision:** Flyway owns the schema in every environment. Hibernate runs with `ddl-auto=validate` and never changes the schema.
+
+**Implemented:**
+
+- `V1__baseline_domain.sql`: `users`, `products`, `orders`, `order_items`, `payments` (unique `payments.order_id` = one payment per order). `orders.currency` is copied as `NUMERIC` to match the current entity; it is fixed in a later migration (Task 1 follow-up).
+- `V2__outbox_events.sql`: outbox table with partial indexes for pending rows and expired leases.
+- `V3__consumed_events.sql`: inbox table, unique `(consumer_name, event_id)`.
+- `ddl-auto=validate` in `application.properties` and `docker-compose.yml`; no `baseline-on-migrate`.
+- `PaymentApplicationTests` moved to `com.example.payment`; runs on Testcontainers PostgreSQL 17 and asserts migrations 1–3 are applied.
+
+**Why first:** the application relied on Hibernate-created tables while the only migration was the outbox `V1`. Applying it to a database that already had domain tables would have left schema ownership inconsistent.
 
 **Work:**
 
 - Decide and document schema ownership: Flyway only for production; disable `ddl-auto` schema changes in production.
-- Create/baseline Flyway migrations for existing `customers`, `products`, `orders`, `order_items`, and `payments` tables before deploying outbox.
+- Create/baseline Flyway migrations for existing `users`, `products`, `orders`, `order_items`, and `payments` tables before deploying outbox.
 - Rename/resequence the outbox migration if an existing Flyway history already has version `1`.
 - Configure local/test PostgreSQL datasource and Flyway locations.
 - Repair `PaymentApplicationTests` package/configuration so it loads `com.example.payment.PaymentApplication`.
@@ -63,7 +73,7 @@ Payment executor consumer
 
 ### Task 1 — Persist Payment Requested Event Atomically
 
-**Status:** implemented; requires Task 0 migration-baseline review before production deployment.
+**Status:** implemented; the outbox table is created by `V2__outbox_events.sql` (Task 0).
 
 **Implemented artifacts:**
 
