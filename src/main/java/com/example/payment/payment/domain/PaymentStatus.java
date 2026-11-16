@@ -5,5 +5,14 @@ public enum PaymentStatus {
   PROCESSING,
   COMPLETED,
   FAILED,
-  REFUNDED
+  REFUNDED;
+
+  public boolean canTransitionTo(PaymentStatus to) {
+    return switch (this) {
+      case PENDING -> to == PROCESSING || to == FAILED;
+      case PROCESSING -> to == COMPLETED || to == FAILED;
+      case COMPLETED -> to == REFUNDED;
+      case FAILED, REFUNDED -> false;
+    };
+  }
 }

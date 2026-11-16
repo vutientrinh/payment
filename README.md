@@ -178,9 +178,25 @@ On macOS/Linux, use `cp .env.example .env` instead of `Copy-Item`.
 Compose starts:
 
 - payment service at `http://localhost:8081` (bound to loopback only);
-- PostgreSQL at `localhost:5432`;
+- PostgreSQL at `localhost:5433` (container port 5432; see `POSTGRES_HOST_PORT` below);
 - Kafka at `localhost:9092`;
-- the `payment.requested.v1` topic with three partitions.
+- the `payment.requested.v1` and `payment.status-changed.v1` topics with three partitions each
+  (created by the one-shot `kafka-init` container, which then exits with code 0).
+
+Check that everything is up:
+
+```powershell
+docker compose ps -a                              # kafka, payment-postgres, payment-local: healthy; kafka-init: Exited (0)
+curl.exe http://localhost:8081/actuator/health    # {"status":"UP"}
+```
+
+Inside Compose the service reaches the database at `payment-postgres:5432`, so the host port only
+matters for tools on your machine. To run the service **outside** Docker (IDE or
+`mvnw spring-boot:run`) against the Compose database, point it at the host port:
+
+```powershell
+$env:SPRING_DATASOURCE_URL = "jdbc:postgresql://localhost:5433/payment"
+```
 
 The database schema is managed by Flyway (`src/main/resources/db/migration`). Hibernate
 runs with `ddl-auto=validate` and only checks that the entities match the schema. To change
@@ -198,8 +214,21 @@ Supported Compose variables:
 | `POSTGRES_IMAGE` | `postgres:17` | Local PostgreSQL Docker image |
 | `POSTGRES_USER` | `payment` | Local database user |
 | `POSTGRES_PASSWORD` | `payment` | Local database password |
+| `POSTGRES_HOST_PORT` | `5433` | Port on your machine for the Compose PostgreSQL. Not 5432, so it does not clash with a PostgreSQL installed on the host |
 
 Do not commit `.env`. `.env.example` is only a local development template; do not use its defaults outside development.
+
+### Troubleshooting the local stack
+
+| Symptom | Cause | Fix |
+| --- | --- | --- |
+| `Ports are not available: ... 127.0.0.1:5432` (or 5433) | Another program already uses that port, usually a PostgreSQL installed on the host | Set `POSTGRES_HOST_PORT` in `.env` to a free port |
+| `kafka` keeps restarting; log shows `AccessDeniedException: /tmp/kraft-combined-logs` | An old `kafka-data` volume created with the wrong owner (the data dir is now `/var/lib/kafka/data`) | `docker compose down -v`, then `docker compose up -d --build` |
+| `kafka-init` exits with code 1 and prints the `kafka-topics.sh` help text | The `command:` was split into separate words, so `bash -c` ran the script with no options | Keep `command:` as a single list item (`- \|` followed by the script) |
+| `payment-local` never becomes healthy | Usually a Flyway or schema-validation error at startup | `docker compose logs payment-local --tail 50` |
+| A topic is missing | Topic auto-creation is off | Add the topic to the loop in `kafka-init` and run `docker compose up -d` |
+
+`docker compose down -v` deletes the local database and Kafka data. Use it only for local resets.
 
 ## Run and verify
 
@@ -219,10 +248,23 @@ Existing unit tests cover payment-event serialization, outbox state/retry behavi
 
 ## Production gaps and risks
 
-- There are no versioned database migrations. Establish a migration baseline for the full schema before deployment to a shared database.
 - The API has no authentication/authorization, ownership checks, or idempotency key.
 - `existsByOrderId` is an early check; it does not replace the database constraint under concurrent payment-creation requests. `DataIntegrityViolationException` is mapped to `409`.
 - There is no Kafka consumer/payment-provider adapter, inbox deduplication, reconciliation, DLT/replay, outbox metrics, or alerting.
 - Do not place card data, payment tokens, or PII in Kafka payloads or application logs.
 
 See [docs/kafka-transactional-outbox-roadmap.md](docs/kafka-transactional-outbox-roadmap.md) for the remaining roadmap and acceptance criteria.
+
+## Implementation guides
+
+Step-by-step coding guides, in the order to follow them. Each one has full code, the reason for
+each step, and a check at the end of every stage.
+
+| Order | Guide | Covers | Status |
+| --- | --- | --- | --- |
+| 1 | [docs/task-4-payment-executor-guide.md](docs/task-4-payment-executor-guide.md) | Kafka consumer, inbox dedup, stub provider, `payment.status-changed.v1` | in progress |
+| 2 | [docs/security-auth-guide.md](docs/security-auth-guide.md) | JWT login, refresh tokens, Google sign-in, admin/user permissions | not started |
+| 3 | [docs/redis-otp-rate-limit-guide.md](docs/redis-otp-rate-limit-guide.md) | Redis, OTP on register and password reset, rate limiting | not started |
+
+The guides were written before the code they describe. Update the status here as each one is done,
+and fix a guide when the real code turns out different.

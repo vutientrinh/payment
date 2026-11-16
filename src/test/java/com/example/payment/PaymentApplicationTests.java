@@ -22,7 +22,7 @@ class PaymentApplicationTests {
     MigrationInfo[] applied = flyway.info().applied();
     assertThat(applied)
         .extracting(info -> info.getVersion().getVersion())
-        .containsExactly("1", "2", "3");
+        .containsExactly("1", "2", "3", "4");
     assertThat(applied).allMatch(info -> info.getState().isApplied());
     assertThat(flyway.info().pending()).isEmpty();
   }

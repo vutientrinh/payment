@@ -81,13 +81,11 @@ public class PaymentServiceImpl implements PaymentService {
   @Override
   public PaymentView updatePaymentStatus(Long id, PaymentStatus status) {
     PaymentEntity payment = getPayment(id);
-    if (!isTransitionAllowed(payment.getPaymentStatus(), status)) {
+    if (!payment.getPaymentStatus().canTransitionTo(status)) {
       throw new ConflictException(
           "Payment status cannot transition from " + payment.getPaymentStatus() + " to " + status);
     }
-
-    payment.setPaymentStatus(status);
-    payment.getOrder().setOrderStatus(toOrderStatus(status));
+    payment.transitionTo(status);
     return PaymentView.from(payment);
   }
 
@@ -111,23 +109,5 @@ public class PaymentServiceImpl implements PaymentService {
                 payment.getOrder().getId(),
                 payment.getOrder().getOrderAmount(),
                 payment.getPaymentMethod())));
-  }
-
-  private boolean isTransitionAllowed(PaymentStatus current, PaymentStatus next) {
-    return switch (current) {
-      case PENDING -> next == PaymentStatus.PROCESSING || next == PaymentStatus.FAILED;
-      case PROCESSING -> next == PaymentStatus.COMPLETED || next == PaymentStatus.FAILED;
-      case COMPLETED -> next == PaymentStatus.REFUNDED;
-      case FAILED, REFUNDED -> false;
-    };
-  }
-
-  private OrderStatus toOrderStatus(PaymentStatus paymentStatus) {
-    return switch (paymentStatus) {
-      case PENDING, PROCESSING -> OrderStatus.PAYMENT_PROCESSING;
-      case COMPLETED -> OrderStatus.PAID;
-      case FAILED -> OrderStatus.PAYMENT_FAILED;
-      case REFUNDED -> OrderStatus.REFUNDED;
-    };
   }
 }
