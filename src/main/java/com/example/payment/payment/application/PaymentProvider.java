@@ -5,5 +5,5 @@ import java.math.BigDecimal;
 
 public interface PaymentProvider {
   PaymentProviderResult charge(
-      Long id, BigDecimal amount, PaymentMethod method, String idempotencyKey);
+      Long paymentId, BigDecimal amount, PaymentMethod method, String idempotencyKey);
 }

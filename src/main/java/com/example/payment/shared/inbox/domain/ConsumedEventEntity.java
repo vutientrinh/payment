@@ -35,4 +35,12 @@ public class ConsumedEventEntity {
 
   @Column(name = "consumed_at", nullable = false)
   private LocalDateTime consumedAt;
+
+  public static ConsumedEventEntity of(String consumerName, UUID eventId) {
+    ConsumedEventEntity entity = new ConsumedEventEntity();
+    entity.consumerName = consumerName;
+    entity.eventId = eventId;
+    entity.consumedAt = LocalDateTime.now();
+    return entity;
+  }
 }

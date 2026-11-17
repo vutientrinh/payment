@@ -1,3 +1,5 @@
 package com.example.payment.payment.application.command;
 
-public class ExecutePaymentCommand {}
+import java.util.UUID;
+
+public record ExecutePaymentCommand(UUID eventId, Long paymentId) {}
