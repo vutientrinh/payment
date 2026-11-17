@@ -83,10 +83,11 @@ public class PaymentExecutionServiceImpl implements PaymentExecutionService {
       log.info("Payment {} -> {}", payment.getId(), payment.getPaymentStatus());
     } else {
       log.warn(
-          "Payment {} changed to {] while charging -- result not applied",
+          "Payment {} changed to {} while charging -- result not applied",
           payment.getId(),
           payment.getPaymentStatus());
     }
+    consumedEventRepository.save(ConsumedEventEntity.of(CONSUMER_NAME, command.eventId()));
   }
 
   private PaymentEntity loadPayment(Long paymentId) {
