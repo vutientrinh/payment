@@ -16,6 +16,7 @@ services:
       SPRING_JPA_HIBERNATE_DDL_AUTO: validate
       KAFKA_BOOTSTRAP_SERVERS: kafka:19092
       KAFKA_OUTBOX_PUBLISHER_ENABLED: "true"
+      PAYMENT_EXECUTOR_ENABLED: "true"
     depends_on:
       payment-postgres:
         condition: service_healthy
