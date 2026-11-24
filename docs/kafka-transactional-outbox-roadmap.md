@@ -148,7 +148,10 @@ spring.kafka.producer.properties.max.in.flight.requests.per.connection=5
 
 ### Task 4 — Implement Idempotent Payment Executor Consumer
 
-**Status:** pending.
+**Status:** implemented 2026-11-23 (guide: `docs/task-4-payment-executor-guide.md`). Verified by unit
+tests and a manual replay (offsets reset to earliest → every event logged "already consumed", no
+second charge, no new status event). Automated replay test: Task 7 guide.
+Note: the inbox key is a unique constraint on `(consumer_name, event_id)` with a surrogate `id`.
 
 **Work:**
 
@@ -166,7 +169,9 @@ spring.kafka.producer.properties.max.in.flight.requests.per.connection=5
 
 ### Task 5 — Reconciliation and Failure Handling
 
-**Status:** pending.
+**Status:** guide ready (`docs/task-5-reconciliation-dlt-guide.md`, verified on a copy: 26/26 tests).
+Decision: a scheduled DB poller (no `payment.reconciliation-requested.v1` event) and no migration.
+DLT replay tool, attempt counter and metrics move to Task 6.
 
 **Work:**
 
@@ -197,7 +202,9 @@ spring.kafka.producer.properties.max.in.flight.requests.per.connection=5
 
 ### Task 7 — Test Strategy
 
-**Status:** pending beyond the existing unit test.
+**Status:** in progress. Unit tests for executor, stub provider, outbox; Kafka duplicate-delivery
+integration test done 2026-11-24 (`docs/task-7-kafka-integration-test-guide.md`). Task 5 adds
+timeout/reconciliation and DLT integration tests.
 
 **Work:**
 
