@@ -262,7 +262,9 @@ each step, and a check at the end of every stage.
 
 | Order | Guide | Covers | Status |
 | --- | --- | --- | --- |
-| 1 | [docs/task-4-payment-executor-guide.md](docs/task-4-payment-executor-guide.md) | Kafka consumer, inbox dedup, stub provider, `payment.status-changed.v1` | in progress |
+| 1 | [docs/task-4-payment-executor-guide.md](docs/task-4-payment-executor-guide.md) | Kafka consumer, inbox dedup, stub provider, `payment.status-changed.v1` | done (2026-11-23) |
+| 1b | [docs/task-7-kafka-integration-test-guide.md](docs/task-7-kafka-integration-test-guide.md) | Testcontainers Kafka test: duplicate delivery never charges twice | done (2026-11-24) |
+| 1c | [docs/task-5-reconciliation-dlt-guide.md](docs/task-5-reconciliation-dlt-guide.md) | Provider timeout → reconciliation job, dead letter topic | not started |
 | 2 | [docs/security-auth-guide.md](docs/security-auth-guide.md) | JWT login, refresh tokens, Google sign-in, admin/user permissions | not started |
 | 3 | [docs/redis-otp-rate-limit-guide.md](docs/redis-otp-rate-limit-guide.md) | Redis, OTP on register and password reset, rate limiting | not started |
 
