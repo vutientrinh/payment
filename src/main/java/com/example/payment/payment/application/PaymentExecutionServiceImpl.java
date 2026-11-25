@@ -32,13 +32,32 @@ public class PaymentExecutionServiceImpl implements PaymentExecutionService {
     if (charge == null) {
       return;
     }
-    PaymentProviderResult result =
-        paymentProvider.charge(
-            charge.paymentId(),
-            charge.amount(),
-            charge.paymentMethod(),
-            idempotencyKey(charge.paymentId()));
+    PaymentProviderResult result;
+    try {
+      result =
+          paymentProvider.charge(
+              charge.paymentId(),
+              charge.amount(),
+              charge.paymentMethod(),
+              idempotencyKey(charge.paymentId()));
+    } catch (ProviderOutcomeUnknownException e) {
+      log.warn("Payment {}: provider outcome unknown ({})", charge.paymentId(), e.getMessage());
+      transactionTemplate.executeWithoutResult(
+          status -> requireReconciliation(command, e.getMessage()));
+      return;
+    }
     transactionTemplate.executeWithoutResult(status -> finish(command, result));
+  }
+
+  private void requireReconciliation(ExecutePaymentCommand command, String reason) {
+    if (consumedEventRepository.exists(CONSUMER_NAME, command.eventId())) return;
+    PaymentEntity payment = loadPayment(command.paymentId());
+    if (payment.getPaymentStatus() == PaymentStatus.PROCESSING) {
+      payment.requireReconciliation(reason);
+      paymentStatusChangedOutbox.append(payment, PaymentStatus.PROCESSING);
+      log.info("Payment {} -> {}", payment.getId(), payment.getPaymentStatus());
+    }
+    consumedEventRepository.save(ConsumedEventEntity.of(CONSUMER_NAME, command.eventId()));
   }
 
   private Charge startProcessing(ExecutePaymentCommand command) {
