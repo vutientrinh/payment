@@ -52,6 +52,7 @@ public class PaymentEntity extends BaseEntity {
   public void complete(String providerReference) {
     transitionTo(PaymentStatus.COMPLETED);
     this.providerReference = providerReference;
+    this.failureReason = null;
   }
 
   public void fail(String providerReference, String failureReason) {
@@ -60,9 +61,14 @@ public class PaymentEntity extends BaseEntity {
     this.failureReason = failureReason;
   }
 
+  public void requireReconciliation(String reason) {
+    transitionTo(RECONCILIATION_REQUIRED);
+    this.failureReason = reason;
+  }
+
   private static OrderStatus toOrderStatus(PaymentStatus paymentStatus) {
     return switch (paymentStatus) {
-      case PENDING, PROCESSING -> OrderStatus.PAYMENT_PROCESSING;
+      case PENDING, PROCESSING, RECONCILIATION_REQUIRED -> OrderStatus.PAYMENT_PROCESSING;
       case COMPLETED -> OrderStatus.PAID;
       case FAILED -> OrderStatus.PAYMENT_FAILED;
       case REFUNDED -> OrderStatus.REFUNDED;

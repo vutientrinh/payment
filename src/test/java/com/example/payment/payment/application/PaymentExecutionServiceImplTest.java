@@ -101,6 +101,22 @@ class PaymentExecutionServiceImplTest {
     verify(paymentStatusChangedOutbox, times(1)).append(payment, PaymentStatus.PROCESSING);
   }
 
+  @Test
+  void unknownProviderOutcomeMovesPaymentToReconciliation() {
+    PaymentEntity payment = payment(PaymentStatus.PENDING);
+    when(paymentRepository.findById(99L)).thenReturn(Optional.of(payment));
+    when(paymentProvider.charge(any(), any(), any(), any()))
+        .thenThrow(new ProviderOutcomeUnknownException("timeout"));
+    paymentExecutionService.execute(command);
+    assertThat(payment.getPaymentStatus()).isEqualTo(PaymentStatus.RECONCILIATION_REQUIRED);
+    assertThat(payment.getOrder().getOrderStatus()).isEqualTo(OrderStatus.PAYMENT_PROCESSING);
+    assertThat(payment.getFailureReason()).isEqualTo("timeout");
+
+    verify(paymentProvider, times(1)).charge(any(), any(), any(), any());
+    verify(paymentStatusChangedOutbox).append(payment, PaymentStatus.PROCESSING);
+    verify(consumedEventRepository).save(any(ConsumedEventEntity.class));
+  }
+
   private static PaymentEntity payment(PaymentStatus paymentStatus) {
     OrderEntity order = new OrderEntity();
     ReflectionTestUtils.setField(order, "id", 42L);
